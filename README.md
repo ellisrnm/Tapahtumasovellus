@@ -19,7 +19,7 @@ Sovelluksen avulla voi luoda tapahtumia, joihin voi kutsua muita käyttäjiä. K
 - Käyttäjä voi lähettää kommentin tapahtumasivulle
 - Käyttäjä voi poistaa kommentteja omasta tapahtumastaan
 - Käyttäjä voi poistaa oman kommenttinsa tai muokata sitä
-- Käyttäjä voi etsiä julkisia tapahtumia nimen/luokan/paikan perusteella
+- Käyttäjä voi etsiä julkisia tapahtumia nimen/luokan perusteella
 - Ylläpitäjä voi luoda ja muokata luokkia, joihin julkisia tapahtumia voi luokitella
 - Ylläpitäjä voi poistaa tapahtumia ja kommentteja sekä muokata niiden tietoja
 
@@ -27,7 +27,7 @@ Sovelluksen avulla voi luoda tapahtumia, joihin voi kutsua muita käyttäjiä. K
 
 Käyttäjien tiedot tallennetaan *Users*-tauluun. Käyttäjällä on käyttäjän yksilöivä id sekä käyttäjän itsensä luoma uniikki käyttäjätunnus. Taulussa on käyttäjän salasana sekä tieto siitä, onko käyttäjä ylläpitäjä vai tavallinen käyttäjä. 
 
-Tapahtumat tallennetaan *Events*-tauluun. Tapahtumalla on tapahtuman yksilöivä id sekä järjestäjä. Tapahtuma voi olla joko julkinen tai yksityinen, jolloin se on näkyvillä ainoastaan tapahtumaan kutsutuille. Ainoastaan tapahtuman järjestäjä voi kutsua muita käyttäjiä yksityiseen tapahtumaan. Kaikki voivat kutsua muita käyttäjiä julkiseen tapahtumaan. Tapahtumalla on myös kuvaus, paikka, päivämäärä, alkamisaika ja päättymisaika. Lisäksi tapahtumalle voi määritellä kaupungin ja luokan, joilla käyttäjät voivat etsiä julkisia tapahtumia.
+Tapahtumat tallennetaan *Events*-tauluun. Tapahtumalla on tapahtuman yksilöivä id sekä järjestäjä. Tapahtuma voi olla joko julkinen tai yksityinen, jolloin se on näkyvillä ainoastaan tapahtumaan kutsutuille. Ainoastaan tapahtuman järjestäjä voi kutsua muita käyttäjiä yksityiseen tapahtumaan. Kaikki voivat kutsua muita käyttäjiä julkiseen tapahtumaan. Tapahtumalla on myös kuvaus, paikka, päivämäärä, alkamisaika ja päättymisaika. Lisäksi tapahtumalle voi määritellä ~~kaupungin ja~~ luokan, joilla käyttäjät voivat etsiä julkisia tapahtumia.
 
 Luokat tallennetaan *Categories*-tauluun. Luokalla on luokan yksilöivä id, nimi ja kuvaus. Tapahtuma voi kuulua ainoastaan yhteen luokkaan mutta yhteen luokkaan voi kuulua useita tapahtumia (1-n).
 

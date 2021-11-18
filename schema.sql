@@ -8,6 +8,7 @@ CREATE TABLE Users (
 
 CREATE TABLE Events (
     event_id SERIAL,
+    event_name TEXT,
     creator_id INTEGER,
     isprivate BOOLEAN,
     event_description TEXT,

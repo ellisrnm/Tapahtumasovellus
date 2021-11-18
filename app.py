@@ -10,4 +10,7 @@ db = SQLAlchemy(app)
 
 @app.route("/")
 def index():
-    return render_template("index.html")
+    query = "SELECT event_name FROM Events WHERE isprivate=False"
+    public_events = db.session.execute(query).fetchall()
+    count = len(public_events)
+    return render_template("index.html", count=count, public_events=public_events)

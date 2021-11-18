@@ -1,2 +1,10 @@
 <title>Tapahtumasovellus</title>
 <h1>Tapahtumasovellus</h1>
+Tervetuloa tapahtumasovellukseen!
+<br>
+<h1>Julkiset tapahtumat</h1>
+Tapahtumien määrä: {{ count }}
+<br>
+{% for event in public_events %}
+{{ event.event_name }}
+{% endfor %}

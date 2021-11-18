@@ -6,6 +6,13 @@ CREATE TABLE Users (
     PRIMARY KEY (user_id)
 );
 
+CREATE TABLE Categories (
+    category_id SERIAL,
+    category_name TEXT,
+    category_description TEXT,
+    PRIMARY KEY (category_id)
+);
+
 CREATE TABLE Events (
     event_id SERIAL,
     event_name TEXT,
@@ -20,13 +27,6 @@ CREATE TABLE Events (
     PRIMARY KEY (event_id),
     FOREIGN KEY (creator_id) REFERENCES Users(user_id),
     FOREIGN KEY (category_id) REFERENCES Categories(category_id)
-);
-
-CREATE TABLE Categories (
-    category_id SERIAL,
-    category_name TEXT,
-    category_description TEXT,
-    PRIMARY KEY (category_id)
 );
 
 CREATE TABLE Invitees (

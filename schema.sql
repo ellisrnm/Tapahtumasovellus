@@ -16,10 +16,10 @@ CREATE TABLE Events (
     event_date DATE,
     start_time TIME,
     end_time TIME,
-    category TEXT,
-    city TEXT,
+    category_id INTEGER,
     PRIMARY KEY (event_id),
-    FOREIGN KEY (creator_id) REFERENCES Users(user_id)
+    FOREIGN KEY (creator_id) REFERENCES Users(user_id),
+    FOREIGN KEY (category_id) REFERENCES Categories(category_id)
 );
 
 CREATE TABLE Categories (

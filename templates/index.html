@@ -1,6 +1,13 @@
 <title>Tapahtumasovellus</title>
 <h1>Tapahtumasovellus</h1>
-Tervetuloa tapahtumasovellukseen!
+Tervetuloa tapahtumasovellukseen! <br><br>
+
+{% if session.user_id %}
+Tervetuloa <b>{{ session.user_name }}</b>, olet kirjautuneena sisään. <a href="/logout">Kirjaudu ulos</a>
+{% else %}
+Et ole kirjautunut. <a href="/login">Kirjaudu sisään</a>
+{% endif %}
+<br>
 <br>
 <h1>Julkiset tapahtumat</h1>
 Tapahtumien määrä: {{ count }}

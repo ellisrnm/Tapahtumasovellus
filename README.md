@@ -9,8 +9,8 @@ Sovelluksen avulla voi luoda tapahtumia, joihin voi kutsua muita käyttäjiä. K
 - [x] Käyttäjä voi luoda uuden tunnuksen
 - [x] Käyttäjä voi kirjautua sisään ja ulos
 - [ ] Käyttäjä näkee etusivulla omat tapahtumat (luodut tapahtumat sekä tapahtumat joihin on kutsuttuna)
-- [ ] Käyttäjä voi luoda uuden tapahtuman, jolla on kuvaus, paikka ja aika
-- [ ] Luodun tapahtuman voi rajata julkiseksi/yksityiseksi
+- [x] Käyttäjä voi luoda uuden tapahtuman, jolla on kuvaus, paikka ja aika
+- [x] Luodun tapahtuman voi rajata julkiseksi/yksityiseksi
 - [ ] Käyttäjä voi muokata omaa tapahtumaansa tai poistaa oman tapahtumansa
 - [ ] Käyttäjä voi etsiä muita käyttäjiä (käyttäjätunnuksia)
 - [ ] Käyttäjä voi luoda käyttäjäryhmiä, joihin kuuluu muita käyttäjiä

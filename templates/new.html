@@ -1,0 +1,20 @@
+<h1>Luo uusi tapahtuma</h1><br>
+<form action="/new" method="post">
+    Tapahtuman nimi: <input type="text" name="event_name">
+    <p>
+    Tapahtuman kuvaus: <textarea name="event_description" rows="2" cols="30"></textarea>
+    <p>
+    Yksityinen:<input type="checkbox" name="isprivate" value="1">
+    <p>
+    Tapahtumapaikka: <input type="text" name="place">
+    <p>
+    Tapahtuman päivämäärä: <input type="date" name="event_date">
+    <p>
+    Tapahtuman alkuaika: <input type="time" name="start_time">
+    <p>
+    Tapahtuman päättymisaika: <input type="time" name="end_time">
+    <p>
+    <input type="submit" value="Luo tapahtuma">
+</form>
+<br>
+<a href="/">Palaa etusivulle</a>

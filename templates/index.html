@@ -4,14 +4,22 @@ Tervetuloa tapahtumasovellukseen! <br><br>
 
 {% if session.user_id %}
 Tervetuloa <b>{{ session.user_name }}</b>, olet kirjautuneena sisään. <a href="/logout">Kirjaudu ulos</a>
+<br><br>
+<a href="/new">Luo uusi tapahtuma</a>
 {% else %}
 Et ole kirjautunut. <a href="/login">Kirjaudu sisään</a>
 {% endif %}
 <br>
+{% if session.user_id %}
+<h1>Omat tapahtumat</h1>
+{% for own_event in own_events %}
+{{ own_event.event_name }}<br>
+{% endfor %}
+{% endif %}
 <br>
 <h1>Julkiset tapahtumat</h1>
 Tapahtumien määrä: {{ count }}
 <br>
-{% for event in public_events %}
-{{ event.event_name }}
+{% for public_event in public_events %}
+{{ public_event.event_name }}<br>
 {% endfor %}

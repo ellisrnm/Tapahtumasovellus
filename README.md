@@ -4,6 +4,10 @@ Projekti on luotu Helsingin Yliopiston Tietokantasovellus-kurssia varten.
 
 Sovelluksen avulla voi luoda tapahtumia, joihin voi kutsua muita käyttäjiä. Käyttäjä voi myös etsiä julkisia tapahtumia. Käyttäjä voi ilmoittautua osallistuvansa tapahtumaan tai perua osallistumisen. Käyttäjä voi olla joko peruskäyttäjä tai ylläpitäjä.
 
+### Sovelluksen testaus
+
+Sovellus on saatavilla testaamista varten [Herokussa](https://tapahtumasovellus.herokuapp.com/)
+
 ### Sovelluksen ominaisuuksia ovat:
 
 - [x] Käyttäjä voi luoda uuden tunnuksen

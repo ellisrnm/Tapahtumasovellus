@@ -8,7 +8,10 @@ app = Flask(__name__)
 
 app.secret_key = getenv("SECRET_KEY")
 
-app.config["SQLALCHEMY_DATABASE_URI"] = getenv("DATABASE_URL")
+dburl = getenv("DATABASE_URL")
+if dburl.startswith("postgres://"):
+    dburl = dburl.replace("postgres://", "postgresql://", 1)
+app.config["SQLALCHEMY_DATABASE_URI"] = dburl
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False #to get rid of warning
 db = SQLAlchemy(app)
 

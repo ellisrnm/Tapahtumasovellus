@@ -17,11 +17,11 @@ db = SQLAlchemy(app)
 
 @app.route("/")
 def index():
-    query = "SELECT event_name FROM Events WHERE isprivate=False"
+    query = "SELECT event_id, event_name FROM Events WHERE isprivate=False"
     public_events = db.session.execute(query).fetchall()
     count = len(public_events)
     user_id = session.get("user_id")
-    query = "SELECT event_name FROM Events WHERE creator_id=:user_id"
+    query = "SELECT event_id, event_name FROM Events WHERE creator_id=:user_id"
     own_events = db.session.execute(query, {"user_id":user_id}).fetchall()
     return render_template("index.html", count=count, public_events=public_events, own_events=own_events)
 
@@ -87,3 +87,20 @@ def new():
         except:
             return render_template("error.html", message="Tapahtuman luonti epäonnistui")
         return redirect("/")
+
+@app.route("/event/<int:event_id>")
+def show_event(event_id):
+    sql = """SELECT event_name, creator_id, event_description, place, event_date, start_time, end_time 
+             FROM Events WHERE event_id=:event_id"""
+    event_info = db.session.execute(sql, {"event_id": event_id}).fetchone()
+    event_name = event_info[0]
+    creator_id = event_info[1]
+    description = event_info[2]
+    place = event_info[3]
+    date = event_info[4]
+    start_time = event_info[5]
+    end_time = event_info[6]
+    sql = """SELECT username FROM Users WHERE user_id=:creator_id"""
+    creator_name = db.session.execute(sql, {"creator_id": creator_id}).fetchone()[0]
+    return render_template("event.html", name=event_name, creator_name=creator_name, description=description,
+                            place=place, date=date, start_time=start_time, end_time=end_time)

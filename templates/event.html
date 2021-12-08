@@ -1,0 +1,15 @@
+{% if session.user_id %}
+<h1>{{ name }}</h1>
+{{ description }}<br><br>
+Järjestäjä: {{ creator_name }}<br>
+Paikka: {{ place }}<br>
+Päivä: {{ date }}<br>
+Alkamisaika: {{ start_time }}<br>
+Päättymisaika: {{ end_time }}<br>
+<br>
+<a href="/">Palaa takaisin etusivulle</a>
+
+{% else %}
+Sinulla ei ole oikeutta tähän tapahtumaan.<br><br>
+<a href="/">Palaa takaisin etusivulle</a>
+{% endif %}

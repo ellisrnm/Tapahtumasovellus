@@ -12,14 +12,18 @@ Et ole kirjautunut. <a href="/login">Kirjaudu sisään</a>
 <br>
 {% if session.user_id %}
 <h1>Omat tapahtumat</h1>
-{% for own_event in own_events %}
-{{ own_event.event_name }}<br>
-{% endfor %}
+<ul>
+    {% for own_event in own_events %}
+    <li><a href="/event/{{ own_event.event_id }}">{{ own_event.event_name }}</a>
+    {% endfor %}
+</ul>
 {% endif %}
 <br>
 <h1>Julkiset tapahtumat</h1>
 Tapahtumien määrä: {{ count }}
 <br>
-{% for public_event in public_events %}
-{{ public_event.event_name }}<br>
-{% endfor %}
+<ul>
+    {% for public_event in public_events %}
+    <li><a href="/event/{{ public_event.event_id }}">{{ public_event.event_name }}</a>
+    {% endfor %}
+</ul>

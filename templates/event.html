@@ -1,4 +1,4 @@
-{% if session.user_id %}
+{% if has_access %}
 <h1>{{ name }}</h1>
 {{ description }}<br><br>
 Järjestäjä: {{ creator_name }}<br>
@@ -7,6 +7,10 @@ Päivä: {{ date }}<br>
 Alkamisaika: {{ start_time }}<br>
 Päättymisaika: {{ end_time }}<br>
 <br>
+{% if iscreator %}
+<a href="/edit/{{event_id}}">Muokkaa tapahtumaa</a><br>
+<br>
+{% endif %}
 <a href="/">Palaa takaisin etusivulle</a>
 
 {% else %}

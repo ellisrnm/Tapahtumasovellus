@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, request, session, abort
 from flask_sqlalchemy import SQLAlchemy
 from os import getenv
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -90,17 +90,75 @@ def new():
 
 @app.route("/event/<int:event_id>")
 def show_event(event_id):
-    sql = """SELECT event_name, creator_id, event_description, place, event_date, start_time, end_time 
+
+    has_access = False
+    iscreator = False
+    sql = """SELECT creator_id FROM Events WHERE event_id=:event_id"""
+    creator_id = db.session.execute(sql, {"event_id":event_id}).fetchone()[0]
+    if creator_id==session.get("user_id"):
+        iscreator = True
+
+    sql = """SELECT event_name, creator_id, isprivate, event_description, place, event_date, start_time, end_time 
              FROM Events WHERE event_id=:event_id"""
     event_info = db.session.execute(sql, {"event_id": event_id}).fetchone()
     event_name = event_info[0]
     creator_id = event_info[1]
-    description = event_info[2]
-    place = event_info[3]
-    date = event_info[4]
-    start_time = event_info[5]
-    end_time = event_info[6]
+    isprivate = event_info[2]
+    description = event_info[3]
+    place = event_info[4]
+    date = event_info[5]
+    start_time = event_info[6]
+    end_time = event_info[7]
     sql = """SELECT username FROM Users WHERE user_id=:creator_id"""
     creator_name = db.session.execute(sql, {"creator_id": creator_id}).fetchone()[0]
-    return render_template("event.html", name=event_name, creator_name=creator_name, description=description,
-                            place=place, date=date, start_time=start_time, end_time=end_time)
+    if iscreator or not isprivate:
+            has_access = True
+    return render_template("event.html", event_id=event_id, name=event_name, creator_name=creator_name, description=description,
+                            place=place, date=date, start_time=start_time, end_time=end_time, iscreator=iscreator, has_access=has_access)
+
+@app.route("/edit/<int:event_id>", methods=["GET", "POST"])
+def edit_event(event_id):
+
+    iscreator = False
+    sql = """SELECT creator_id FROM Events WHERE event_id=:event_id"""
+    creator_id = db.session.execute(sql, {"event_id":event_id}).fetchone()[0]
+    if creator_id!=session.get("user_id"):
+        abort(403)
+    else:
+        iscreator = True
+
+    if request.method == "GET":
+        user_id = session.get("user_id")
+        sql = """SELECT event_name, creator_id, isprivate, event_description, place, event_date, start_time, end_time 
+                FROM Events WHERE event_id=:event_id"""
+        event_info = db.session.execute(sql, {"event_id":event_id}).fetchone()
+        event_name = event_info[0]
+        creator_id = event_info[1]
+        isprivate = event_info[2]
+        event_description = event_info[3]
+        place = event_info[4]
+        event_date = event_info[5]
+        start_time = event_info[6]
+        end_time = event_info[7]
+
+        return render_template("edit.html", event_id=event_id, event_name=event_name, isprivate=isprivate, event_description=event_description,
+                                place=place, event_date=event_date, start_time=start_time, end_time=end_time, iscreator=iscreator)
+    if request.method == "POST":
+        event_name = request.form["event_name"]
+        isprivate = request.form.get("isprivate") or "0"
+        event_description = request.form["event_description"]
+        place = request.form["place"]
+        event_date = request.form["event_date"]
+        start_time = request.form["start_time"]
+        end_time = request.form["end_time"]
+        try:
+            sql = """UPDATE Events SET event_name=:event_name, isprivate=:isprivate, event_description=:event_description, 
+            place=:place, event_date=:event_date, start_time=:start_time, end_time=:end_time
+            WHERE event_id=:event_id"""
+            db.session.execute(sql, {"event_id":event_id, "event_name":event_name, "isprivate":isprivate, 
+                                    "event_description":event_description, "place":place, "event_date":event_date,
+                                    "start_time":start_time, "end_time":end_time})
+            db.session.commit()
+        except:
+            return render_template("error.html", message="Tapahtuman muokkaus epäonnistui")
+        return redirect("/event/"+str(event_id))

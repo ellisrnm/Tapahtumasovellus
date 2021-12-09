@@ -1,0 +1,30 @@
+{% if session.user_id %}
+<h1>Muokkaa tapahtumaa</h1><br>
+<form action="/edit/{{event_id}}" method="post">
+    Tapahtuman nimi: <input type="text" name="event_name" value="{{event_name}}">
+    <p>
+    Tapahtuman kuvaus: <textarea name="event_description" rows="2" cols="30">{{event_description}}</textarea>
+    <p>
+    {% if isprivate %}
+    Yksityinen:<input type="checkbox" name="isprivate" value="1" checked>
+    {% else %}
+    Yksityinen:<input type="checkbox" name="isprivate" value="1">
+    {% endif %}
+    <p>
+    Tapahtumapaikka: <input type="text" name="place" value={{place}}>
+    <p>
+    Tapahtuman päivämäärä: <input type="date" name="event_date" value="{{event_date}}">
+    <p>
+    Tapahtuman alkuaika: <input type="time" name="start_time" value={{start_time}}>
+    <p>
+    Tapahtuman päättymisaika: <input type="time" name="end_time" value={{end_time}}>
+    <p>
+    <input type="submit" value="Tallenna tiedot">
+</form>
+<br>
+<a href="/event/{{event_id}}">Palaa tapahtumasivulle</a>
+
+{% else %}
+Vain kirjautuneet käyttäjät voivat muokata tapahtumia.<br><br>
+<a href="/login">Kirjaudu sisään</a>
+{% endif %}

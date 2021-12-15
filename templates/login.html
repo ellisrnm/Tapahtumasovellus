@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+
+{% block content %}
 <h1>Kirjaudu sisään</h1><br>
 <form action="/login" method="post">
     Käyttäjätunnus: <input type="text" name="username">
@@ -6,5 +9,4 @@
     <p>
     <input type="submit" value="Kirjaudu">
     </form>
-    <a href="/register">Rekisteröidy</a><br><br>
-    <a href="/">Palaa takaisin etusivulle kirjautumatta</a>
+{% endblock %}

@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+
+{% block content %}
 {% if session.user_id %}
 <h1>Luo uusi tapahtuma</h1><br>
 <form action="/new" method="post">
@@ -17,10 +20,8 @@
     <p>
     <input type="submit" value="Luo tapahtuma">
 </form>
-<br>
-<a href="/">Palaa etusivulle</a>
 
 {% else %}
 Vain kirjautuneet käyttäjät voivat luoda uusia tapahtumia.<br><br>
-<a href="/login">Kirjaudu sisään</a>
 {% endif %}
+{% endblock %}

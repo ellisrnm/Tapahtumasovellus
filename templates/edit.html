@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+
+{% block content %}
 {% if session.user_id %}
 <h1>Muokkaa tapahtumaa</h1><br>
 <form action="/edit/{{event_id}}" method="post">
@@ -26,5 +29,5 @@
 
 {% else %}
 Vain kirjautuneet käyttäjät voivat muokata tapahtumia.<br><br>
-<a href="/login">Kirjaudu sisään</a>
 {% endif %}
+{% endblock %}

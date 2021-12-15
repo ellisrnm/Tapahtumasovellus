@@ -1,15 +1,6 @@
-<title>Tapahtumasovellus</title>
-<h1>Tapahtumasovellus</h1>
-Tervetuloa tapahtumasovellukseen! <br><br>
+{% extends "layout.html" %}
 
-{% if session.user_id %}
-Tervetuloa <b>{{ session.user_name }}</b>, olet kirjautuneena sisään. <a href="/logout">Kirjaudu ulos</a>
-<br><br>
-<a href="/new">Luo uusi tapahtuma</a>
-{% else %}
-Et ole kirjautunut. <a href="/login">Kirjaudu sisään</a>
-{% endif %}
-<br>
+{% block content %}
 {% if session.user_id %}
 <h1>Omat tapahtumat</h1>
 <ul>
@@ -27,3 +18,4 @@ Tapahtumien määrä: {{ count }}
     <li><a href="/event/{{ public_event.event_id }}">{{ public_event.event_name }}</a>
     {% endfor %}
 </ul>
+{% endblock %}

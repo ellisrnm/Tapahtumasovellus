@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+
+{% block content %}
 {% if has_access %}
 <h1>{{ name }}</h1>
 {{ description }}<br><br>
@@ -11,9 +14,8 @@ Päättymisaika: {{ end_time }}<br>
 <a href="/edit/{{event_id}}">Muokkaa tapahtumaa</a><br>
 <br>
 {% endif %}
-<a href="/">Palaa takaisin etusivulle</a>
 
 {% else %}
 Sinulla ei ole oikeutta tähän tapahtumaan.<br><br>
-<a href="/">Palaa takaisin etusivulle</a>
 {% endif %}
+{% endblock %}

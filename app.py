@@ -17,11 +17,11 @@ db = SQLAlchemy(app)
 
 @app.route("/")
 def index():
-    query = "SELECT event_id, event_name FROM Events WHERE isprivate=False"
+    query = "SELECT event_id, event_name, event_description, place, event_date FROM Events WHERE isprivate=False"
     public_events = db.session.execute(query).fetchall()
     count = len(public_events)
     user_id = session.get("user_id")
-    query = "SELECT event_id, event_name FROM Events WHERE creator_id=:user_id"
+    query = "SELECT event_id, event_name, event_description, place, event_date FROM Events WHERE creator_id=:user_id"
     own_events = db.session.execute(query, {"user_id":user_id}).fetchall()
     return render_template("index.html", count=count, public_events=public_events, own_events=own_events)
 

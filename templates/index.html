@@ -1,21 +1,40 @@
 {% extends "layout.html" %}
 
 {% block content %}
+
+<div class="container">
+<br>
 {% if session.user_id %}
 <h1>Omat tapahtumat</h1>
-<ul>
-    {% for own_event in own_events %}
-    <li><a href="/event/{{ own_event.event_id }}">{{ own_event.event_name }}</a>
-    {% endfor %}
-</ul>
+<br><br>
+{% for own_event in own_events %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ own_event.event_name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ own_event.event_date }}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">{{ own_event.place }}</h6>
+        <p class="card-text">{{ own_event.event_description }}</p>
+        <a href="/event/{{ own_event.event_id }}" class="card-link">Näytä tapahtuma</a>
+    </div>
+</div><br>
+{% endfor %}
 {% endif %}
 <br>
 <h1>Julkiset tapahtumat</h1>
 Tapahtumien määrä: {{ count }}
+<br><br>
+{% for public_event in public_events %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ public_event.event_name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ public_event.event_date }}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">{{ public_event.place }}</h6>
+        <p class="card-text">{{ public_event.event_description }}</p>
+        <a href="/event/{{ public_event.event_id }}" class="card-link">Näytä tapahtuma</a>
+    </div>
+</div><br>
+{% endfor %}
+</div>
 <br>
-<ul>
-    {% for public_event in public_events %}
-    <li><a href="/event/{{ public_event.event_id }}">{{ public_event.event_name }}</a>
-    {% endfor %}
-</ul>
 {% endblock %}
+

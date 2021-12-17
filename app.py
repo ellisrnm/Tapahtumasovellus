@@ -162,3 +162,16 @@ def edit_event(event_id):
         except:
             return render_template("error.html", message="Tapahtuman muokkaus epäonnistui")
         return redirect("/event/"+str(event_id))
+
+@app.route("/delete", methods=["POST"])
+def delete_event():
+    confirmed = request.form["confirm"]
+    event_id = request.form["event_id"]
+    if confirmed:
+        try:
+            sql = """DELETE FROM Events WHERE event_id=:event_id"""
+            db.session.execute(sql, {"event_id":event_id})
+            db.session.commit()
+        except:
+            return render_template("error.html", message="Tapahtuman poistaminen epäonnistui")
+    return redirect("/")

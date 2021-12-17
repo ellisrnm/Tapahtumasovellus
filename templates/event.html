@@ -2,20 +2,44 @@
 
 {% block content %}
 {% if has_access %}
-<h1>{{ name }}</h1>
-{{ description }}<br><br>
-Järjestäjä: {{ creator_name }}<br>
-Paikka: {{ place }}<br>
-Päivä: {{ date }}<br>
-Alkamisaika: {{ start_time }}<br>
-Päättymisaika: {{ end_time }}<br>
-<br>
-{% if iscreator %}
-<a href="/edit/{{event_id}}">Muokkaa tapahtumaa</a><br>
-<br>
-{% endif %}
+
+<div class="container">
+    <div class="container">
+        <div class="page-header">
+            <h1>{{ name }}</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="page-header">
+            <h5 style="color:grey;">{{ description }}</h5>
+        </div>
+    </div><br>
+    <div class="container">
+        <b>Järjestäjä</b> {{ creator_name }}
+    </div>
+    <div class="container">
+        <b>Paikka</b> {{ place }}
+    </div>
+    <div class="container">
+        <b>Päivä</b> {{ date }}
+    </div>
+    <div class="container">
+        <b>Alkaa</b> {{ start_time }}
+    </div>
+    <div class="container">
+        <b>Päättyy</b> {{ end_time }}
+    </div><br>
+    <div class="container">
+        {% if iscreator %}
+        <a href="/edit/{{event_id}}">Muokkaa tapahtumaa</a>
+        {% endif %}
+    </div>
+</div>
 
 {% else %}
-Sinulla ei ole oikeutta tähän tapahtumaan.<br><br>
+<div class="container">
+    Sinulla ei ole oikeutta tähän tapahtumaan.
+</div>
+
 {% endif %}
 {% endblock %}

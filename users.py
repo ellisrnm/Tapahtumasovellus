@@ -40,9 +40,12 @@ def is_event_creator(event_id):
     return False
 
 def has_access_to_event(event_id):
+    user_id = session.get("user_id")
     if not events.isprivate(event_id):
         return True
     elif is_event_creator(event_id):
+        return True
+    elif is_invited(user_id, event_id):
         return True
     return False
 
@@ -51,3 +54,13 @@ def search_users(user):
     result = db.session.execute(sql, {"user":"%"+user+"%"})
     found_users = result.fetchall()
     return found_users
+
+def is_invited(user_id, event_id):
+    try:
+        sql = """SELECT user_id FROM Invitees WHERE event_id=:event_id AND user_id=:user_id"""
+        id = db.session.execute(sql, {"event_id":event_id, "user_id":user_id}).fetchone()[0]
+    except:
+        return False
+    if not id:
+        return False
+    return True

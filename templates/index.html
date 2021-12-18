@@ -5,8 +5,8 @@
 <div class="container">
 <br>
 {% if session.user_id %}
-<h1>Omat tapahtumat</h1>
-<br><br>
+<h1>Järjestämäsi tapahtumat</h1>
+<br>
 {% for own_event in own_events %}
 <div class="card">
     <div class="card-body">
@@ -18,8 +18,22 @@
     </div>
 </div><br>
 {% endfor %}
-{% endif %}
 <br>
+<h1>Tapahtumat, joihin sinut on kutsuttu</h1>
+<br>
+{% for invitation in invitations %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ invitation.event_name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ invitation.event_date }}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">{{ invitation.place }}</h6>
+        <p class="card-text">{{ invitation.event_description }}</p>
+        <a href="/event/{{ invitation.event_id }}" class="card-link">Näytä tapahtuma</a>
+    </div>
+</div><br>
+{% endfor %}
+<br>
+{% endif %}
 <h1>Julkiset tapahtumat</h1>
 Tapahtumien määrä: {{ count }}
 <br><br>

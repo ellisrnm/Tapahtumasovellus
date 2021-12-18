@@ -7,8 +7,9 @@ import attendance
 @app.route("/")
 def index():
     public_events, count = events.get_public_events()
-    own_events = events.get_events_by_active_user() 
-    return render_template("index.html", count=count, public_events=public_events, own_events=own_events)
+    own_events = events.get_events_by_active_user()
+    invitations = events.get_events_by_invitation()
+    return render_template("index.html", count=count, public_events=public_events, own_events=own_events, invitations=invitations)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -79,8 +80,9 @@ def edit_event(event_id):
         abort(403)
     if request.method == "GET":
         event_name, _, creator_name, isprivate, event_description, place, event_date, start_time, end_time = events.get_event_info(event_id)
+        invitees = events.get_invitees_str(event_id)
         return render_template("edit.html", event_id=event_id, event_name=event_name, isprivate=isprivate, event_description=event_description,
-                                place=place, event_date=event_date, start_time=start_time, end_time=end_time)
+                                place=place, event_date=event_date, start_time=start_time, end_time=end_time, invitees=invitees)
     if request.method == "POST":
         users.check_csrf()
         event_name = request.form["event_name"]
@@ -90,8 +92,12 @@ def edit_event(event_id):
         event_date = request.form["event_date"]
         start_time = request.form["start_time"]
         end_time = request.form["end_time"]
+        invitees = request.form["invitees"]
         if not events.update_event_info(event_id, event_name, isprivate, event_description, place, event_date, start_time, end_time):
             return render_template("error.html", message="Tapahtuman muokkaus epäonnistui")
+        invite_succeed, failed = events.invite_users(event_id, invitees)
+        if not invite_succeed:
+            return render_template("error.html", message="Käyttäjän " + str(failed) + " lisäys epäonnistui")
         return redirect("/event/"+str(event_id))
 
 @app.route("/delete", methods=["POST"])

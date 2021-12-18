@@ -50,6 +50,24 @@
         <a href="/edit/{{event_id}}">Muokkaa tapahtumaa</a>
         {% endif %}
     </div>
+    <br>
+    <div class="container">
+        <div class="page-header">
+            <h1>Osallistujat</h1>
+        </div>
+    </div>
+    <div class="container">
+    {% if has_attendees %}
+    <br>
+        <ul class="list-group">
+        {% for attendee in attendees %}
+            <li class="list-group-item"><b>{{ attendee.username }}</b></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+    Tapahtumalla ei ole vielä osallistujia.
+    {% endif %}
+    </div>
 </div>
 
 {% else %}

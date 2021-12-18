@@ -81,9 +81,11 @@ def show_event(event_id):
         if iscreator or not isprivate:
                 has_access = True
         attending = events.get_attendance_info(event_id)
+        attendees = events.get_attendees(event_id)
+        has_attendees = 0 if len(attendees)==0 else 1
         return render_template("event.html", event_id=event_id, name=event_name, creator_name=creator_name, description=description,
                                 place=place, date=date, start_time=start_time, end_time=end_time, iscreator=iscreator, 
-                                attending=attending, has_access=has_access)
+                                attending=attending, has_access=has_access, attendees=attendees, has_attendees=has_attendees)
     if request.method == "POST":
         attending = request.form["attendance"]
         if not events.add_attendance_info(event_id, attending):

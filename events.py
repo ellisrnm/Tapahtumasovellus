@@ -51,3 +51,12 @@ def add_attendance_info(event_id, attending):
         except:
             return False
     return True
+
+def get_attendees(event_id):
+    try:
+        sql = """SELECT a.user_id, u.username FROM Attendance a, Users u 
+                 WHERE a.event_id=:event_id AND attending=True AND a.user_id=u.user_id"""
+        attendees = db.session.execute(sql, {"event_id":event_id}).fetchall()
+    except:
+        return []
+    return attendees

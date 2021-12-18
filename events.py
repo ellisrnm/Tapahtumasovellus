@@ -1,14 +1,26 @@
 from flask import session
 from db import db
 
+def isprivate(event_id):
+    try:
+        sql = """SELECT isprivate FROM Events WHERE event_id=:event_id"""
+        isprivate = db.session.execute(sql, {"event_id": event_id}).fetchone()[0]
+    except:
+        return False
+    return isprivate
+
 def get_public_events():
     query = "SELECT event_id, event_name, event_description, place, event_date FROM Events WHERE isprivate=False"
     events = db.session.execute(query).fetchall()
     return events
 
-def get_events_by_user(user_id):
-    sql = "SELECT event_id, event_name, event_description, place, event_date FROM Events WHERE creator_id=:user_id"
-    events = db.session.execute(sql, {"user_id":user_id}).fetchall()
+def get_events_by_active_user():
+    try:
+        user_id = session.get("user_id")
+        sql = "SELECT event_id, event_name, event_description, place, event_date FROM Events WHERE creator_id=:user_id"
+        events = db.session.execute(sql, {"user_id":user_id}).fetchall()
+    except:
+        return []
     return events
 
 def create(event_name, isprivate, event_description, place, event_date, start_time, end_time):
@@ -24,39 +36,36 @@ def create(event_name, isprivate, event_description, place, event_date, start_ti
         return False
     return True
 
-def get_attendance_info(event_id):
-    user_id = session.get("user_id")
+def delete(event_id, confirmed):
+    if not confirmed:
+        return False
     try:
-        sql = """SELECT attending FROM Attendance WHERE event_id=:event_id AND user_id=:user_id"""
-        attending_old = db.session.execute(sql, {"event_id":event_id, "user_id":user_id}).fetchone()[0]
+        sql = """DELETE FROM Events WHERE event_id=:event_id"""
+        db.session.execute(sql, {"event_id":event_id})
+        db.session.commit()
     except:
-        return None
-    return attending_old
-
-def add_attendance_info(event_id, attending):
-    user_id = session.get("user_id")
-    attending_old = get_attendance_info(event_id)
-    if attending_old in (False, True):
-        try:
-            sql = """UPDATE Attendance SET attending=:attending WHERE event_id=:event_id AND user_id=:user_id"""
-            db.session.execute(sql, {"attending":attending, "event_id":event_id, "user_id":user_id})
-            db.session.commit()
-        except:
-            return False
-    else:
-        try:
-            sql = """INSERT INTO Attendance (event_id, user_id, attending) VALUES (:event_id, :user_id, :attending)"""
-            db.session.execute(sql, {"event_id":event_id, "user_id":user_id, "attending":attending})
-            db.session.commit()
-        except:
-            return False
+        return False
     return True
 
-def get_attendees(event_id):
+def get_event_info(event_id):
     try:
-        sql = """SELECT a.user_id, u.username FROM Attendance a, Users u 
-                 WHERE a.event_id=:event_id AND attending=True AND a.user_id=u.user_id"""
-        attendees = db.session.execute(sql, {"event_id":event_id}).fetchall()
+        sql = """SELECT e.event_name, e.creator_id, u.username, e.isprivate, e.event_description, e.place, e.event_date, e.start_time, e.end_time 
+                 FROM Events e, Users u WHERE e.event_id=:event_id AND e.creator_id=u.user_id"""
+        event_info = db.session.execute(sql, {"event_id": event_id}).fetchone()
     except:
         return []
-    return attendees
+    return event_info
+
+def update_event_info(event_id, event_name, isprivate, event_description, place, event_date, start_time, end_time):
+    try:
+        sql = """UPDATE Events SET event_name=:event_name, isprivate=:isprivate, event_description=:event_description, 
+        place=:place, event_date=:event_date, start_time=:start_time, end_time=:end_time
+        WHERE event_id=:event_id"""
+        db.session.execute(sql, {"event_id":event_id, "event_name":event_name, "isprivate":isprivate, 
+                                "event_description":event_description, "place":place, "event_date":event_date,
+                                "start_time":start_time, "end_time":end_time})
+        db.session.commit()
+    except:
+        return False
+    return True
+

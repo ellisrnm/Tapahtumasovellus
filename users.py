@@ -1,9 +1,7 @@
 from flask import session
 from werkzeug.security import check_password_hash, generate_password_hash
 from db import db
-
-def user_id():
-    return session.get("user_id", False)
+import events
 
 def login(username, password):
     sql = "SELECT user_id, password FROM Users WHERE username=:username"
@@ -27,3 +25,17 @@ def register(username, password):
     except:
         return False
     return True
+
+def is_event_creator(event_id):
+    sql = """SELECT creator_id FROM Events WHERE event_id=:event_id"""
+    creator_id = db.session.execute(sql, {"event_id":event_id}).fetchone()[0]
+    if creator_id==session.get("user_id"):
+        return True
+    return False
+
+def has_access_to_event(event_id):
+    if not events.isprivate(event_id):
+        return True
+    elif is_event_creator(event_id):
+        return True
+    return False

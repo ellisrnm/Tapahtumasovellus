@@ -16,7 +16,7 @@ Sovellus on saatavilla testaamista varten [Herokussa](https://tapahtumasovellus.
 - [x] Käyttäjä voi luoda uuden tapahtuman, jolla on kuvaus, paikka ja aika
 - [x] Luodun tapahtuman voi rajata julkiseksi/yksityiseksi
 - [x] Käyttäjä voi muokata omaa tapahtumaansa tai poistaa oman tapahtumansa
-- [ ] Käyttäjä voi etsiä muita käyttäjiä (käyttäjätunnuksia)
+- [x] Käyttäjä voi etsiä muita käyttäjiä (käyttäjätunnuksia)
 - [ ] Käyttäjä voi luoda käyttäjäryhmiä, joihin kuuluu muita käyttäjiä
 - [ ] Käyttäjä voi kutsua muita käyttäjiä tai käyttäjäryhmiä tapahtumaansa
 - [x] Käyttäjä voi ilmoittaa osallistuvansa tai olevansa osallistumatta tapahtumaan, valintoja voi myös muuttaa

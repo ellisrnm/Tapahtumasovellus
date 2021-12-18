@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+{% if session.user_id %}
+<div class="container">
+    <form action="/users" method="GET">
+        <div class="form-group">
+            <label>Etsi käyttäjää</label>
+            <input type="text" class="form-control" name="user">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Etsi</button>
+        </div>
+    </form>
+    <br><br>
+    <ul class="list-group">
+        {% for found_user in found_users %}
+            <li class="list-group-item"><b>{{ found_user.username }}</b></li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% else %}
+<div class="container">
+    Vain kirjautuneet käyttäjät voivat etsiä muita käyttäjiä.
+</div>
+{% endif %}
+
+{% endblock %}

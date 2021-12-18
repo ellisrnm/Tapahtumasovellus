@@ -102,3 +102,9 @@ def delete_event():
     if not events.delete(event_id, confirmed):
         return render_template("error.html", message="Tapahtuman poistaminen epäonnistui")
     return redirect("/")
+
+@app.route("/users", methods=["GET"])
+def find_users():
+    user = request.args["user"]
+    found_users = users.search_users(user)
+    return render_template("users.html", found_users=found_users)

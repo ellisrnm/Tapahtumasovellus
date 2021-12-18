@@ -45,3 +45,9 @@ def has_access_to_event(event_id):
     elif is_event_creator(event_id):
         return True
     return False
+
+def search_users(user):
+    sql = "SELECT user_id, username FROM Users WHERE username ILIKE :user"
+    result = db.session.execute(sql, {"user":"%"+user+"%"})
+    found_users = result.fetchall()
+    return found_users

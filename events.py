@@ -10,9 +10,11 @@ def isprivate(event_id):
     return isprivate
 
 def get_public_events():
-    query = "SELECT event_id, event_name, event_description, place, event_date FROM Events WHERE isprivate=False"
-    events = db.session.execute(query).fetchall()
-    return events
+    sql = "SELECT event_id, event_name, event_description, place, event_date FROM Events WHERE isprivate=False"
+    events = db.session.execute(sql).fetchall()
+    sql = "SELECT COUNT(event_id) FROM Events WHERE isprivate=False"
+    count = db.session.execute(sql).fetchone()[0]
+    return events, count
 
 def get_events_by_active_user():
     try:

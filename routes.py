@@ -6,8 +6,7 @@ import attendance
 
 @app.route("/")
 def index():
-    public_events = events.get_public_events()
-    count = len(public_events)
+    public_events, count = events.get_public_events()
     own_events = events.get_events_by_active_user() 
     return render_template("index.html", count=count, public_events=public_events, own_events=own_events)
 

@@ -55,33 +55,40 @@ def new():
             return render_template("error.html", message="Tapahtuman luonti epäonnistui")
         return redirect("/")
 
-@app.route("/event/<int:event_id>")
+@app.route("/event/<int:event_id>", methods=["GET", "POST"])
 def show_event(event_id):
+    if request.method == "GET":
+        has_access = False
+        iscreator = False
+        sql = """SELECT creator_id FROM Events WHERE event_id=:event_id"""
+        creator_id = db.session.execute(sql, {"event_id":event_id}).fetchone()[0]
+        if creator_id==session.get("user_id"):
+            iscreator = True
 
-    has_access = False
-    iscreator = False
-    sql = """SELECT creator_id FROM Events WHERE event_id=:event_id"""
-    creator_id = db.session.execute(sql, {"event_id":event_id}).fetchone()[0]
-    if creator_id==session.get("user_id"):
-        iscreator = True
-
-    sql = """SELECT event_name, creator_id, isprivate, event_description, place, event_date, start_time, end_time 
-             FROM Events WHERE event_id=:event_id"""
-    event_info = db.session.execute(sql, {"event_id": event_id}).fetchone()
-    event_name = event_info[0]
-    creator_id = event_info[1]
-    isprivate = event_info[2]
-    description = event_info[3]
-    place = event_info[4]
-    date = event_info[5]
-    start_time = event_info[6]
-    end_time = event_info[7]
-    sql = """SELECT username FROM Users WHERE user_id=:creator_id"""
-    creator_name = db.session.execute(sql, {"creator_id": creator_id}).fetchone()[0]
-    if iscreator or not isprivate:
-            has_access = True
-    return render_template("event.html", event_id=event_id, name=event_name, creator_name=creator_name, description=description,
-                            place=place, date=date, start_time=start_time, end_time=end_time, iscreator=iscreator, has_access=has_access)
+        sql = """SELECT event_name, creator_id, isprivate, event_description, place, event_date, start_time, end_time 
+                FROM Events WHERE event_id=:event_id"""
+        event_info = db.session.execute(sql, {"event_id": event_id}).fetchone()
+        event_name = event_info[0]
+        creator_id = event_info[1]
+        isprivate = event_info[2]
+        description = event_info[3]
+        place = event_info[4]
+        date = event_info[5]
+        start_time = event_info[6]
+        end_time = event_info[7]
+        sql = """SELECT username FROM Users WHERE user_id=:creator_id"""
+        creator_name = db.session.execute(sql, {"creator_id": creator_id}).fetchone()[0]
+        if iscreator or not isprivate:
+                has_access = True
+        attending = events.get_attendance_info(event_id)
+        return render_template("event.html", event_id=event_id, name=event_name, creator_name=creator_name, description=description,
+                                place=place, date=date, start_time=start_time, end_time=end_time, iscreator=iscreator, 
+                                attending=attending, has_access=has_access)
+    if request.method == "POST":
+        attending = request.form["attendance"]
+        if not events.add_attendance_info(event_id, attending):
+            return render_template("error.html", message="Osallistumisen päivittäminen epäonnistui")
+        return redirect("/event/"+str(event_id))
 
 @app.route("/edit/<int:event_id>", methods=["GET", "POST"])
 def edit_event(event_id):

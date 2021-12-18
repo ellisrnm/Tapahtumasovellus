@@ -33,7 +33,7 @@ CREATE TABLE Invitees (
     event_id INTEGER,
     user_id INTEGER,
     PRIMARY KEY (event_id, user_id),
-    FOREIGN KEY (event_id) REFERENCES Events(event_id),
+    FOREIGN KEY (event_id) REFERENCES Events(event_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
@@ -42,7 +42,7 @@ CREATE TABLE Attendance (
     user_id INTEGER,
     attending BOOLEAN,
     PRIMARY KEY (event_id, user_id),
-    FOREIGN KEY (event_id) REFERENCES Events(event_id),
+    FOREIGN KEY (event_id) REFERENCES Events(event_id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES Users(user_id)
 );
 
@@ -68,5 +68,5 @@ CREATE TABLE Comments (
     author_id INTEGER,
     PRIMARY KEY (comment_id),
     FOREIGN KEY (author_id) REFERENCES Users(user_id),
-    FOREIGN KEY (event_id) REFERENCES Events(event_id)
+    FOREIGN KEY (event_id) REFERENCES Events(event_id) ON DELETE CASCADE
 );

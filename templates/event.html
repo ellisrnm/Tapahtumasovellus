@@ -28,7 +28,23 @@
     </div>
     <div class="container">
         <b>Päättyy</b> {{ end_time }}
-    </div><br>
+    </div>
+    <br>
+    {% if session.user_id %}
+    <form action="/event/{{event_id}}" method="post">
+        <div class="container">
+            <div class="btn-toolbar">
+                <button type="submit" class="btn btn-primary mr-3" name="attendance" value="t">Osallistun</button>
+                <button type="submit" class="btn btn-primary" name="attendance" value="f">En osallistu</button>
+            </div>
+            <small>{% if attending %} Sinä osallistut tapahtumaan {% else %} Et ole osallistumassa tähän tapahtumaan {% endif %}</small>
+        </div>
+    </form><br>
+    {% else %}
+    <div class="container">
+        Kirjaudu sisään osallistuaksesi tapahtumaan.
+    </div>
+    {% endif %}
     <div class="container">
         {% if iscreator %}
         <a href="/edit/{{event_id}}">Muokkaa tapahtumaa</a>

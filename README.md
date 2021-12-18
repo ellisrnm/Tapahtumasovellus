@@ -19,7 +19,7 @@ Sovellus on saatavilla testaamista varten [Herokussa](https://tapahtumasovellus.
 - [ ] Käyttäjä voi etsiä muita käyttäjiä (käyttäjätunnuksia)
 - [ ] Käyttäjä voi luoda käyttäjäryhmiä, joihin kuuluu muita käyttäjiä
 - [ ] Käyttäjä voi kutsua muita käyttäjiä tai käyttäjäryhmiä tapahtumaansa
-- [ ] Käyttäjä voi ilmoittaa osallistuvansa tai olevansa osallistumatta tapahtumaan, valintoja voi myös muuttaa
+- [x] Käyttäjä voi ilmoittaa osallistuvansa tai olevansa osallistumatta tapahtumaan, valintoja voi myös muuttaa
 - [ ] Käyttäjä voi lähettää kommentin tapahtumasivulle
 - [ ] Käyttäjä voi poistaa kommentteja omasta tapahtumastaan
 - [ ] Käyttäjä voi poistaa oman kommenttinsa tai muokata sitä

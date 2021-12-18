@@ -2,24 +2,30 @@
 
 Projekti on luotu Helsingin Yliopiston Tietokantasovellus-kurssia varten.
 
-Sovelluksen avulla voi luoda tapahtumia, joihin voi kutsua muita käyttäjiä. Käyttäjä voi myös etsiä julkisia tapahtumia. Käyttäjä voi ilmoittautua osallistuvansa tapahtumaan tai perua osallistumisen. Käyttäjä voi olla joko peruskäyttäjä tai ylläpitäjä.
+Sovelluksen avulla voi luoda tapahtumia, joihin voi kutsua muita käyttäjiä. Käyttäjä voi myös selata julkisia tapahtumia. Käyttäjä voi ilmoittautua osallistuvansa tapahtumaan tai perua osallistumisensa. Tapahtumasivulla voi nähdä tapahtumaan ilmoittautuneet käyttäjät.
+
+Kaikkia sovelluksen ominaisuuksia ei ehditty toteuttamaan tämän kurssin puitteissa. Nämä ominaisuudet olisivat kuitenkin sovelluksen käytön kannalta mielekkäitä, joten olen lisännyt puuttuvat ominaisuudet jatkokehityslistalle.
 
 ### Sovelluksen testaus
 
-Sovellus on saatavilla testaamista varten [Herokussa](https://tapahtumasovellus.herokuapp.com/)
+Sovelluksen viimeisin versio on saatavilla testaamista varten [Herokussa](https://tapahtumasovellus.herokuapp.com/)
 
 ### Sovelluksen ominaisuuksia ovat:
 
 - [x] Käyttäjä voi luoda uuden tunnuksen
 - [x] Käyttäjä voi kirjautua sisään ja ulos
-- [ ] Käyttäjä näkee etusivulla omat tapahtumat (luodut tapahtumat sekä tapahtumat joihin on kutsuttuna)
+- [x] Käyttäjä näkee etusivulla omat tapahtumat (luodut tapahtumat sekä tapahtumat joihin on kutsuttuna)
 - [x] Käyttäjä voi luoda uuden tapahtuman, jolla on kuvaus, paikka ja aika
 - [x] Luodun tapahtuman voi rajata julkiseksi/yksityiseksi
 - [x] Käyttäjä voi muokata omaa tapahtumaansa tai poistaa oman tapahtumansa
 - [x] Käyttäjä voi etsiä muita käyttäjiä (käyttäjätunnuksia)
-- [ ] Käyttäjä voi luoda käyttäjäryhmiä, joihin kuuluu muita käyttäjiä
-- [ ] Käyttäjä voi kutsua muita käyttäjiä tai käyttäjäryhmiä tapahtumaansa
+- [x] Käyttäjä voi kutsua muita käyttäjiä tapahtumaansa
 - [x] Käyttäjä voi ilmoittaa osallistuvansa tai olevansa osallistumatta tapahtumaan, valintoja voi myös muuttaa
+
+### Mahdollisia jatkokehitysideoita
+
+- [ ] Käyttäjä voi luoda käyttäjäryhmiä, joihin kuuluu muita käyttäjiä
+- [ ] Käyttäjä voi kutsua muita käyttäjäryhmiä tapahtumaansa
 - [ ] Käyttäjä voi lähettää kommentin tapahtumasivulle
 - [ ] Käyttäjä voi poistaa kommentteja omasta tapahtumastaan
 - [ ] Käyttäjä voi poistaa oman kommenttinsa tai muokata sitä

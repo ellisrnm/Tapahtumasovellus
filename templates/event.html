@@ -39,6 +39,7 @@
             </div>
             <small>{% if attending %} Sinä osallistut tapahtumaan {% else %} Et ole osallistumassa tähän tapahtumaan {% endif %}</small>
         </div>
+    <input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
     </form><br>
     {% else %}
     <div class="container">

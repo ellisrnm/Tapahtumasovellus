@@ -1,7 +1,12 @@
-from flask import session
+from flask import session, abort, request
 from werkzeug.security import check_password_hash, generate_password_hash
 from db import db
+from secrets import token_hex
 import events
+
+def check_csrf():
+    if session["csrf_token"] != request.form["csrf_token"]:
+        abort(403)
 
 def login(username, password):
     sql = "SELECT user_id, password FROM Users WHERE username=:username"
@@ -10,6 +15,7 @@ def login(username, password):
         return False
     session["user_id"] = user[0]
     session["user_name"] = username
+    session["csrf_token"] = token_hex(16)
     return True
 
 def logout():

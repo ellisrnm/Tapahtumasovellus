@@ -43,6 +43,7 @@ def new():
     if request.method == "GET":
         return render_template("new.html")
     if request.method == "POST":
+        users.check_csrf()
         event_name = request.form["event_name"]
         isprivate = request.form.get("isprivate") or "0"
         event_description = request.form["event_description"]
@@ -67,6 +68,7 @@ def show_event(event_id):
                                 place=place, date=date, start_time=start_time, end_time=end_time, iscreator=iscreator, 
                                 attending=attending, has_access=has_access, attendees=attendees, has_attendees=has_attendees)
     if request.method == "POST":
+        users.check_csrf()
         attending = request.form["attendance"]
         if not attendance.add_attendance_info(event_id, attending):
             return render_template("error.html", message="Osallistumisen päivittäminen epäonnistui")
@@ -81,6 +83,7 @@ def edit_event(event_id):
         return render_template("edit.html", event_id=event_id, event_name=event_name, isprivate=isprivate, event_description=event_description,
                                 place=place, event_date=event_date, start_time=start_time, end_time=end_time)
     if request.method == "POST":
+        users.check_csrf()
         event_name = request.form["event_name"]
         isprivate = request.form.get("isprivate") or "0"
         event_description = request.form["event_description"]
@@ -94,6 +97,7 @@ def edit_event(event_id):
 
 @app.route("/delete", methods=["POST"])
 def delete_event():
+    users.check_csrf()
     confirmed = request.form["confirm"]
     event_id = request.form["event_id"]
     if not events.delete(event_id, confirmed):
